@@ -1,6 +1,13 @@
+import { useEffect } from 'react'
 import './App.css'
-
+import useTree from '../src/hooks/useTree'
 function App() {
+
+  const { test } = useTree()
+
+  useEffect( () => {
+    test()
+  },[])
 
   return (
     <>
