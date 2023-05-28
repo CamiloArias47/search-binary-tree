@@ -1,5 +1,6 @@
-export default function useTree(){
-    let tree = null
+ import { useRef } from "react";
+ export default function useTree(){
+    let tree = useRef(null)
 
     function insertNode(node, newNode) {
       if (newNode.value < node.value) {
@@ -19,14 +20,21 @@ export default function useTree(){
 
     function insert(value) {
       const newNode = { value, left: null, right: null }
-      if (tree === null) {
-        tree = newNode
+      if (tree.current === null) {
+        tree.current = newNode
       } else {
-        insertNode(tree, newNode);
+        insertNode(tree.current, newNode);
       }
     }
 
-    function test(){
+    function getSubtree(node) {
+       const root = node.value
+       const left = node.left?.value ?? ""
+       const right = node.right?.value ?? ""
+       return {root, left, right}
+    }
+
+    function createDefaultTree(){
         insert(8);
         insert(3);
         insert(10);
@@ -39,5 +47,5 @@ export default function useTree(){
         console.log(tree)
     }
 
-    return { tree, insert, test }
+    return { tree, insert, createDefaultTree, getSubtree }
 }

@@ -1,24 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import useTree from '../src/hooks/useTree'
-function App() {
+import Subtree from '../src/components/Subtree';
 
-  const { test } = useTree()
+function App() {
+  const [treeRenders, setTreeRenders] = useState(0)
+  const { tree, createDefaultTree, insert, getSubtree } = useTree()
 
   useEffect( () => {
-    test()
+    createDefaultTree()
+    setTreeRenders(1)
   },[])
+
+  const add = e => {
+    e.preventDefault()
+    const inputNum = document.getElementById('new_node')
+    let num = inputNum.value
+    if(num) {
+      num = parseInt(num)
+      insert(num)
+    }
+    inputNum.value = ''
+    setTreeRenders(treeRenders + 1)
+  }
+
+  const draw = <Subtree tree={tree.current}/>
 
   return (
     <>
       <h1>Árboles binarios de búsqueda 🎄</h1>
       <form>
-        <input type='number' placeholder='número' required></input>
-        <button>Insertar ➕</button>
+        <input id="new_node" type='number' placeholder='número' required></input>
+        <button onClick={add}>Insertar ➕</button>
         <button>Buscar 🔍</button>
         <button>Eliminar 🗑</button>
       </form>
-      <canvas width="800" height="400" ></canvas>
+      {draw}
       by Camilo Arias and Javier Escobar
     </>
   )

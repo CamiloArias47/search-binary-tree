@@ -1,0 +1,56 @@
+.subtree{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    list-style: none;
+    justify-content: center;
+    padding: 0px;
+}
+
+.parent-node {
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.left-child, .right-child{
+    width: 50%;
+    text-align: center;
+}
+
+.circle{
+    border: 2px solid dimgray;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    color: #fafafa;
+    background-color: dimgray;
+}
+
+
+.draw-tree{
+    margin-top: 34px;
+    margin-bottom: 34px;
+}
+
+.left-line {
+    border: 1px solid dimgray;
+    display: inline-block;
+    position: absolute;
+    width: 23%;
+    left: 25%;
+    top: 87%;
+    transform: skew(11deg, 168deg);
+}
+
+.right-line {
+    border: 1px solid dimgray;
+    display: inline-block;
+    position: absolute;
+    width: 21%;
+    top: 87%;
+    transform: skew(11deg, 12deg);
+}
