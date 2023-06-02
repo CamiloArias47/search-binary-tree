@@ -4,21 +4,22 @@ export default function Subtree({tree}) {
 
     function buildBinaryTree(obj) {
         if (!obj) {
-          return <li></li>;
+          return <ul></ul>;
         }
       
-        const { value, left, right } = obj;
+        const { value, left, right, selected } = obj;
 
         const subtreeLeft = buildBinaryTree(left)
         const subtreeRight = buildBinaryTree(right)
 
+        const finded = selected ? 'circle finded' : 'circle'
         const leftLine = left ? <span className='left-line'></span> : null
         const rightLine = right ? <span className='right-line'></span> : null
       
         const html = <ul className="subtree">
             <li className="parent-node">
               {leftLine}
-              <span className='circle'>{value}</span>
+              <span className={finded}>{value}</span>
               {rightLine}
             </li>
             <li className="left-child">{subtreeLeft}</li>

@@ -1,26 +1,55 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import useTree from '../src/hooks/useTree'
-import Subtree from '../src/components/Subtree';
+import Subtree from '../src/components/subtree';
 
 function App() {
   const [treeRenders, setTreeRenders] = useState(0)
-  const { tree, createDefaultTree, insert, getSubtree } = useTree()
+  const usedFind = useRef(false)
+  const { tree, createDefaultTree, insert, dell, find, clean} = useTree()
 
   useEffect( () => {
     createDefaultTree()
     setTreeRenders(1)
   },[])
 
-  const add = e => {
-    e.preventDefault()
+  const getValue = () => {
     const inputNum = document.getElementById('new_node')
     let num = inputNum.value
-    if(num) {
-      num = parseInt(num)
-      insert(num)
-    }
+    return num ? parseInt(num) : false
+  }
+  
+  const cleanForm = () => {
+    const inputNum = document.getElementById('new_node')
     inputNum.value = ''
+  }
+
+  const add = e => {
+    e.preventDefault()
+    const num = getValue()
+    if(typeof num === 'number') insert(num)
+    cleanForm()
+    setTreeRenders(treeRenders + 1)
+  }
+
+  const deleteNode = e => {
+    e.preventDefault()
+    const num = getValue()
+    if(typeof num === 'number') dell(num)
+    if(usedFind.current) clean()
+    cleanForm()
+    setTreeRenders(treeRenders + 1)
+  }
+
+  const search = e => {
+    e.preventDefault()
+    if(usedFind.current) clean()
+    const num = getValue()
+    if(typeof num === 'number'){
+      find(num)
+      usedFind.current = true
+    } 
+    cleanForm()
     setTreeRenders(treeRenders + 1)
   }
 
@@ -32,8 +61,8 @@ function App() {
       <form>
         <input id="new_node" type='number' placeholder='número' required></input>
         <button onClick={add}>Insertar ➕</button>
-        <button>Buscar 🔍</button>
-        <button>Eliminar 🗑</button>
+        <button onClick={search}>Buscar 🔍</button>
+        <button onClick={deleteNode}>Eliminar 🗑</button>
       </form>
       {draw}
       by Camilo Arias and Javier Escobar
