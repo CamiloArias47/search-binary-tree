@@ -30,13 +30,6 @@
       }
     }
 
-    function getSubtree(node) {
-       const root = node.value
-       const left = node.left?.value ?? ""
-       const right = node.right?.value ?? ""
-       return {root, left, right}
-    }
-
     function createDefaultTree(){
         insert(8);
         insert(3);
@@ -127,8 +120,7 @@
     return { 
       tree, 
       insert, 
-      createDefaultTree, 
-      getSubtree,
+      createDefaultTree,
       dell,
       find,
       clean
